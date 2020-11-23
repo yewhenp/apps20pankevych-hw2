@@ -1,15 +1,15 @@
 package ua.edu.ucu.collections.immutable;
 
 public class ImmutableArrayList implements ImmutableList {
-    private int size;
+    private final int size;
     private final Object[] data;
 
-    public ImmutableArrayList(int size){
+    public ImmutableArrayList(int size) {
         this.size = size;
         this.data = new Object[size];
     }
 
-    public ImmutableArrayList(){
+    public ImmutableArrayList() {
         this.size = 0;
         this.data = new Object[size];
     }
@@ -24,17 +24,17 @@ public class ImmutableArrayList implements ImmutableList {
 
     @Override
     public ImmutableArrayList add(int index, Object e) {
-        if (index > size || index < 0){
+        if (index > size || index < 0) {
             throw new IndexOutOfBoundsException();
         }
 
         ImmutableArrayList result = new ImmutableArrayList(size + 1);
-        int from_index = 0;
-        for (int i = 0; i < size + 1; i++){
-            if (i != index){
-                result.data[i] = data[from_index];
-                from_index += 1;
-            }else {
+        int fromIndex = 0;
+        for (int i = 0; i < size + 1; i++) {
+            if (i != index) {
+                result.data[i] = data[fromIndex];
+                fromIndex += 1;
+            } else {
                 result.data[i] = e;
             }
         }
@@ -54,20 +54,20 @@ public class ImmutableArrayList implements ImmutableList {
 
     @Override
     public ImmutableArrayList addAll(int index, Object[] c) {
-        if (index > size || index < 0){
+        if (index > size || index < 0) {
             throw new IndexOutOfBoundsException();
         }
 
         ImmutableArrayList result = new ImmutableArrayList(size + c.length);
-        int from_index = 0;
-        int c_index = 0;
-        for (int i = 0; i < size + c.length; i++){
-            if (i < index || i >= index + c.length){
-                result.data[i] = data[from_index];
-                from_index += 1;
-            }else {
-                result.data[i] = c[c_index];
-                c_index += 1;
+        int fromIndex = 0;
+        int cIndex = 0;
+        for (int i = 0; i < size + c.length; i++) {
+            if (i < index || i >= index + c.length) {
+                result.data[i] = data[fromIndex];
+                fromIndex += 1;
+            } else {
+                result.data[i] = c[cIndex];
+                cIndex += 1;
             }
         }
         return result;
@@ -75,7 +75,7 @@ public class ImmutableArrayList implements ImmutableList {
 
     @Override
     public Object get(int index) {
-        if (index > size || index < 0){
+        if (index > size || index < 0) {
             throw new IndexOutOfBoundsException();
         }
         return data[index];
@@ -83,16 +83,16 @@ public class ImmutableArrayList implements ImmutableList {
 
     @Override
     public ImmutableArrayList remove(int index) {
-        if (index > size || index < 0){
+        if (index > size || index < 0) {
             throw new IndexOutOfBoundsException();
         }
 
         ImmutableArrayList result = new ImmutableArrayList(size - 1);
-        int to_index = 0;
-        for (int i = 0; i < size; i++){
-            if (i != index){
-                result.data[to_index] = data[i];
-                to_index += 1;
+        int toIndex = 0;
+        for (int i = 0; i < size; i++) {
+            if (i != index) {
+                result.data[toIndex] = data[i];
+                toIndex += 1;
             }
         }
         return result;
@@ -100,7 +100,7 @@ public class ImmutableArrayList implements ImmutableList {
 
     @Override
     public ImmutableArrayList set(int index, Object e) {
-        if (index > size || index < 0){
+        if (index > size || index < 0) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -115,7 +115,7 @@ public class ImmutableArrayList implements ImmutableList {
         int index = -1;
 
         for (int i = 0; i < size; i++) {
-            if (data[i].equals(e)){
+            if (data[i].equals(e)) {
                 index = i;
                 break;
             }
@@ -146,7 +146,7 @@ public class ImmutableArrayList implements ImmutableList {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < size; i++) {
             result.append(data[i].toString());
@@ -155,7 +155,7 @@ public class ImmutableArrayList implements ImmutableList {
         return result.toString();
     }
 
-    private void copyValues(ImmutableArrayList from, ImmutableArrayList to){
+    private void copyValues(ImmutableArrayList from, ImmutableArrayList to) {
         System.arraycopy(from.data, 0, to.data, 0, from.size);
     }
 }

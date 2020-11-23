@@ -33,7 +33,7 @@ public class Queue {
         size += 1;
     }
 
-    public String toString(){
+    public String toString() {
         return data.toString();
     }
 }

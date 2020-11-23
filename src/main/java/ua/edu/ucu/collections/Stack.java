@@ -33,7 +33,7 @@ public class Stack {
         size += 1;
     }
 
-    public String toString(){
+    public String toString() {
         return data.toString();
     }
 }

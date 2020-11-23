@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-public class ImmutableLinkedList implements ImmutableList{
+public class ImmutableLinkedList implements ImmutableList {
     private ListNode firstNode;
     private ListNode lastNode;
     private int size;
@@ -52,7 +52,7 @@ public class ImmutableLinkedList implements ImmutableList{
 
     @Override
     public ImmutableLinkedList addAll(int index, Object[] c) {
-        if (index > size || index < 0){
+        if (index > size || index < 0) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -62,7 +62,7 @@ public class ImmutableLinkedList implements ImmutableList{
         ListNode tempFirsNode = new ListNode(c[0], null, null);
         ListNode tempLastNode = tempFirsNode;
 
-        for (int i = 1; i < c.length; i++){
+        for (int i = 1; i < c.length; i++) {
             ListNode newNode = new ListNode(c[i], null, tempLastNode);
             tempLastNode.setNext(newNode);
             tempLastNode = newNode;
@@ -70,7 +70,7 @@ public class ImmutableLinkedList implements ImmutableList{
 
         ListNode workNode = result.firstNode;
         int i = 0;
-        while (i < index){
+        while (i < index) {
             workNode = workNode.getNext();
             i += 1;
         }
@@ -79,12 +79,12 @@ public class ImmutableLinkedList implements ImmutableList{
             result.lastNode = tempLastNode;
             result.size = c.length;
         } else {
-            if (index == 0){
+            if (index == 0) {
                 result.firstNode.setPrev(tempLastNode);
                 tempLastNode.setNext(result.firstNode);
                 result.firstNode = tempFirsNode;
             }
-            else if (index == size){
+            else if (index == size) {
                 result.lastNode.setNext(tempFirsNode);
                 tempLastNode.setPrev(result.lastNode);
                 result.lastNode = tempLastNode;
@@ -92,9 +92,7 @@ public class ImmutableLinkedList implements ImmutableList{
             else {
                 tempLastNode.setNext(workNode);
                 tempFirsNode.setPrev(workNode.getPrev());
-                if (workNode.getPrev() != null) {
-                    workNode.getPrev().setNext(tempFirsNode);
-                }
+                workNode.getPrev().setNext(tempFirsNode);
                 workNode.setPrev(tempFirsNode);
             }
             result.size += c.length;
@@ -104,13 +102,13 @@ public class ImmutableLinkedList implements ImmutableList{
 
     @Override
     public Object get(int index) {
-        if (index >= size || index < 0){
+        if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException();
         }
 
         ListNode node = firstNode;
         int i = 0;
-        while (i < index){
+        while (i < index) {
             node = node.getNext();
             i += 1;
         }
@@ -119,7 +117,7 @@ public class ImmutableLinkedList implements ImmutableList{
 
     @Override
     public ImmutableLinkedList remove(int index) {
-        if (index >= size || index < 0){
+        if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -128,19 +126,19 @@ public class ImmutableLinkedList implements ImmutableList{
 
         ListNode node = result.firstNode;
         int i = 0;
-        while (i < index){
+        while (i < index) {
             node = node.getNext();
             i += 1;
         }
 
         if (index != 0) {
             node.getPrev().setNext(node.getNext());
-        }else {
+        } else {
             result.firstNode = result.firstNode.next;
         }
         if (index < size - 1) {
             node.getNext().setPrev(node.getPrev());
-        }else {
+        } else {
             result.lastNode = result.lastNode.getPrev();
         }
         result.size -= 1;
@@ -151,7 +149,7 @@ public class ImmutableLinkedList implements ImmutableList{
 
     @Override
     public ImmutableLinkedList set(int index, Object e) {
-        if (index >= size || index < 0){
+        if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -160,7 +158,7 @@ public class ImmutableLinkedList implements ImmutableList{
 
         ListNode node = result.firstNode;
         int i = 0;
-        while (i < index){
+        while (i < index) {
             node = node.getNext();
             i += 1;
         }
@@ -173,14 +171,14 @@ public class ImmutableLinkedList implements ImmutableList{
     public int indexOf(Object e) {
         ListNode node = firstNode;
         int i = 0;
-        while (i < size){
-            if (node.getValue().equals(e)){
+        while (i < size) {
+            if (node.getValue().equals(e)) {
                 break;
             }
             node = node.getNext();
             i += 1;
         }
-        if (i == size){
+        if (i == size) {
             return -1;
         }
         return i;
@@ -206,7 +204,7 @@ public class ImmutableLinkedList implements ImmutableList{
         Object[] result = new Object[size];
         ListNode node = firstNode;
         int i = 0;
-        while (i < size){
+        while (i < size) {
             result[i] = node.getValue();
             node = node.getNext();
             i += 1;
@@ -214,12 +212,12 @@ public class ImmutableLinkedList implements ImmutableList{
         return result;
     }
 
-    public ImmutableLinkedList addFirst(Object e){
+    public ImmutableLinkedList addFirst(Object e) {
         ImmutableLinkedList result = new ImmutableLinkedList();
         copyList(this, result);
         ListNode node = new ListNode(e, result.firstNode, null);
 
-        if (size == 0){
+        if (size == 0) {
             result.lastNode = node;
             result.firstNode = node;
             result.size += 1;
@@ -232,12 +230,12 @@ public class ImmutableLinkedList implements ImmutableList{
         return result;
     }
 
-    public ImmutableLinkedList addLast(Object e){
+    public ImmutableLinkedList addLast(Object e) {
         ImmutableLinkedList result = new ImmutableLinkedList();
         copyList(this, result);
         ListNode node = new ListNode(e, null, result.lastNode);
 
-        if (size == 0){
+        if (size == 0) {
             result.lastNode = node;
             result.firstNode = node;
             result.size += 1;
@@ -250,64 +248,66 @@ public class ImmutableLinkedList implements ImmutableList{
         return result;
     }
 
-    public Object getFirst(){
-        if (size == 0){
+    public Object getFirst() {
+        if (size == 0) {
             throw new IndexOutOfBoundsException();
         }
         return firstNode.getValue();
     }
 
-    public Object getLast(){
-        if (size == 0){
+    public Object getLast() {
+        if (size == 0) {
             throw new IndexOutOfBoundsException();
         }
         return lastNode.getValue();
     }
 
-    public ImmutableLinkedList removeFirst(){
-        if (size == 0){
+    public ImmutableLinkedList removeFirst() {
+        if (size == 0) {
             throw new IndexOutOfBoundsException();
         }
         ImmutableLinkedList result = new ImmutableLinkedList();
         copyList(this, result);
         result.firstNode = result.firstNode.getNext();
         result.size -= 1;
-        if (result.size == 0){
+        if (result.size == 0) {
             result.lastNode = null;
         }
         return result;
     }
 
-    public ImmutableLinkedList removeLast(){
-        if (size == 0){
+    public ImmutableLinkedList removeLast() {
+        if (size == 0) {
             throw new IndexOutOfBoundsException();
         }
         ImmutableLinkedList result = new ImmutableLinkedList();
         copyList(this, result);
         result.lastNode = result.lastNode.getPrev();
         result.size -= 1;
-        if (result.size == 0){
+        if (result.size == 0) {
             result.firstNode = null;
         }
         return result;
     }
 
     @Getter @Setter @AllArgsConstructor
-    private static class ListNode{
+    private static class ListNode {
         private Object value;
         private ListNode next;
         private ListNode prev;
     }
 
-    private void copyList(ImmutableLinkedList from, ImmutableLinkedList to){
-        if (from.size >= 1){
-            ListNode node = new ListNode(from.firstNode.getValue(), from.firstNode.getNext(), from.firstNode.getPrev());
+    private void copyList(ImmutableLinkedList from, ImmutableLinkedList to) {
+        if (from.size >= 1) {
+            ListNode node = new ListNode(from.firstNode.getValue(),
+                    from.firstNode.getNext(), from.firstNode.getPrev());
             to.firstNode = node;
 
-            while (node.getNext() != null){
-                ListNode node_new = new ListNode(node.getNext().getValue(), node.getNext().getNext(), node);
-                node.setNext(node_new);
-                node = node_new;
+            while (node.getNext() != null) {
+                ListNode nodeNew = new ListNode(node.getNext().getValue(),
+                        node.getNext().getNext(), node);
+                node.setNext(nodeNew);
+                node = nodeNew;
             }
 
             to.lastNode = node;
@@ -320,7 +320,7 @@ public class ImmutableLinkedList implements ImmutableList{
         ListNode node = firstNode;
         int i = 0;
         StringBuilder result = new StringBuilder();
-        while (i < size){
+        while (i < size) {
             result.append(node.value.toString());
             result.append(",");
             node = node.getNext();

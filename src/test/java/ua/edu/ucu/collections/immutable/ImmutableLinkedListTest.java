@@ -85,6 +85,15 @@ public class ImmutableLinkedListTest {
         tempList.addAll(5, new String[]{"3", "4", "5"});
     }
 
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testAddAllIndexExeptBelow() {
+        ImmutableLinkedList tempList;
+
+        tempList = list.add("1");
+        tempList = tempList.add("2");
+        tempList.addAll(-5, new String[]{"3", "4", "5"});
+    }
+
     @Test
     public void testGet() {
         ImmutableLinkedList tempList;
