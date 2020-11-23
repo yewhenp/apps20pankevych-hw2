@@ -40,6 +40,15 @@ public class ImmutableArrayListTest {
         tempList.add(5, "3");
     }
 
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testAddIndexExeptBelow() {
+        ImmutableArrayList tempList;
+
+        tempList = list.add("1");
+        tempList = tempList.add("2");
+        tempList.add(-5, "3");
+    }
+
 
     @Test
     public void testAddAllLast() {
@@ -74,6 +83,15 @@ public class ImmutableArrayListTest {
         tempList.addAll(5, new String[]{"3", "4", "5"});
     }
 
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testAddAllIndexExeptBelow() {
+        ImmutableArrayList tempList;
+
+        tempList = list.add("1");
+        tempList = tempList.add("2");
+        tempList.addAll(-5, new String[]{"3", "4", "5"});
+    }
+
     @Test
     public void testGet() {
         ImmutableArrayList tempList;
@@ -97,7 +115,20 @@ public class ImmutableArrayListTest {
 
         assertEquals(tempList.toString(), "1,2,3,4,5,");
         assertEquals(list.toString(), "");
-        tempList.get(5);
+        tempList.get(7);
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testGetExeptBelow() {
+        ImmutableArrayList tempList;
+
+        tempList = list.add("1");
+        tempList = tempList.add("2");
+        tempList = tempList.addAll(new String[]{"3", "4", "5"});
+
+        assertEquals(tempList.toString(), "1,2,3,4,5,");
+        assertEquals(list.toString(), "");
+        tempList.get(-5);
     }
 
     @Test
@@ -122,6 +153,15 @@ public class ImmutableArrayListTest {
         tempList.remove(5);
     }
 
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testRemoveExeptBelow() {
+        ImmutableArrayList tempList;
+
+        tempList = list.add("1");
+        tempList = tempList.add("2");
+        tempList.remove(-5);
+    }
+
     @Test
     public void testSet() {
         ImmutableArrayList tempList;
@@ -142,6 +182,15 @@ public class ImmutableArrayListTest {
         tempList = list.add("1");
         tempList = tempList.add("2");
         tempList.set(5, "4");
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testSetExeptBelow() {
+        ImmutableArrayList tempList;
+
+        tempList = list.add("1");
+        tempList = tempList.add("2");
+        tempList.set(-5, "4");
     }
 
     @Test

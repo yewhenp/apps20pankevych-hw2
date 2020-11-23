@@ -80,17 +80,21 @@ public class ImmutableLinkedList implements ImmutableList{
             result.size = c.length;
         } else {
             if (index == 0){
+                result.firstNode.setPrev(tempFirsNode);
                 result.firstNode = tempFirsNode;
             }
-            if (index == size){
+            else if (index == size){
+                result.lastNode.setNext(tempFirsNode);
                 result.lastNode = tempFirsNode;
             }
-            tempLastNode.setNext(workNode);
-            tempFirsNode.setPrev(workNode.getPrev());
-            if (workNode.getPrev() != null){
-                workNode.getPrev().setNext(tempFirsNode);
+            else {
+                tempLastNode.setNext(workNode);
+                tempFirsNode.setPrev(workNode.getPrev());
+                if (workNode.getPrev() != null) {
+                    workNode.getPrev().setNext(tempFirsNode);
+                }
+                workNode.setPrev(tempFirsNode);
             }
-            workNode.setPrev(tempFirsNode);
             result.size += c.length;
         }
         return result;
@@ -158,7 +162,7 @@ public class ImmutableLinkedList implements ImmutableList{
             node = node.getNext();
             i += 1;
         }
-        node.value = e;
+        node.setValue(e);
 
         return result;
     }

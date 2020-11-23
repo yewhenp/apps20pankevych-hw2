@@ -27,13 +27,23 @@ public class ImmutableLinkedListTest {
         tempList = list.add("1");
         tempList = tempList.add("2");
         tempList = tempList.add(1, "3");
+        tempList = tempList.add(3, "4");
 
-        assertEquals(tempList.toString(), "1,3,2,");
+        assertEquals(tempList.toString(), "1,3,2,4,");
         assertEquals(list.toString(), "");
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void testAddIndexExept() {
+        ImmutableLinkedList tempList;
+
+        tempList = list.add("1");
+        tempList = tempList.add("2");
+        tempList.add(5, "3");
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testAddIndexBelowExept() {
         ImmutableLinkedList tempList;
 
         tempList = list.add("1");
@@ -101,6 +111,19 @@ public class ImmutableLinkedListTest {
         tempList.get(5);
     }
 
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testGetExeptBelow() {
+        ImmutableLinkedList tempList;
+
+        tempList = list.add("1");
+        tempList = tempList.add("2");
+        tempList = tempList.addAll(new String[]{"3", "4", "5"});
+
+        assertEquals(tempList.toString(), "1,2,3,4,5,");
+        assertEquals(list.toString(), "");
+        tempList.get(-5);
+    }
+
     @Test
     public void testRemove() {
         ImmutableLinkedList tempList;
@@ -123,6 +146,15 @@ public class ImmutableLinkedListTest {
         tempList.remove(5);
     }
 
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testRemoveExeptBelow() {
+        ImmutableLinkedList tempList;
+
+        tempList = list.add("1");
+        tempList = tempList.add("2");
+        tempList.remove(-5);
+    }
+
     @Test
     public void testSet() {
         ImmutableLinkedList tempList;
@@ -143,6 +175,15 @@ public class ImmutableLinkedListTest {
         tempList = list.add("1");
         tempList = tempList.add("2");
         tempList.set(5, "4");
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testSetExeptBelow() {
+        ImmutableLinkedList tempList;
+
+        tempList = list.add("1");
+        tempList = tempList.add("2");
+        tempList.set(-5, "4");
     }
 
     @Test
@@ -263,6 +304,16 @@ public class ImmutableLinkedListTest {
         assertEquals(list.toString(), "");
     }
 
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testGetLastExept() {
+        list.getLast();
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testGetFirstExept() {
+        list.getFirst();
+    }
+
     @Test
     public void testGetFirst() {
         ImmutableLinkedList tempList;
@@ -293,7 +344,7 @@ public class ImmutableLinkedListTest {
         assertEquals(tempList.toString(), "");
         assertEquals(list.toString(), "");
 
-        tempList.removeFirst();
+        tempList.removeLast();
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
