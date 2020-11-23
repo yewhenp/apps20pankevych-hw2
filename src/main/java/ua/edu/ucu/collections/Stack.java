@@ -18,7 +18,7 @@ public class Stack {
         return data.get(0);
     }
 
-    public Object dequeue() {
+    public Object pop() {
         if (size == 0) {
             throw new IndexOutOfBoundsException();
         }
@@ -28,8 +28,12 @@ public class Stack {
         return value;
     }
 
-    public void enqueue(Object e) {
+    public void push(Object e) {
         this.data = data.add(0, e);
         size += 1;
+    }
+
+    public String toString(){
+        return data.toString();
     }
 }

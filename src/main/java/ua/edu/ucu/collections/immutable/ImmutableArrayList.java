@@ -1,11 +1,16 @@
 package ua.edu.ucu.collections.immutable;
 
 public class ImmutableArrayList implements ImmutableList {
-    private final int size;
+    private int size;
     private final Object[] data;
 
     public ImmutableArrayList(int size){
         this.size = size;
+        this.data = new Object[size];
+    }
+
+    public ImmutableArrayList(){
+        this.size = 0;
         this.data = new Object[size];
     }
 
@@ -57,7 +62,7 @@ public class ImmutableArrayList implements ImmutableList {
         int from_index = 0;
         int c_index = 0;
         for (int i = 0; i < size + c.length; i++){
-            if (i < index || i > index){
+            if (i < index || i >= index + c.length){
                 result.data[i] = data[from_index];
                 from_index += 1;
             }else {
@@ -83,12 +88,12 @@ public class ImmutableArrayList implements ImmutableList {
         }
 
         ImmutableArrayList result = new ImmutableArrayList(size - 1);
-        int from_index = 0;
-        for (int i = 0; i < size - 1; i++){
+        int to_index = 0;
+        for (int i = 0; i < size; i++){
             if (i != index){
-                result.data[i] = data[from_index];
+                result.data[to_index] = data[i];
+                to_index += 1;
             }
-            from_index += 1;
         }
         return result;
     }
@@ -99,7 +104,7 @@ public class ImmutableArrayList implements ImmutableList {
             throw new IndexOutOfBoundsException();
         }
 
-        ImmutableArrayList result = new ImmutableArrayList(size + 1);
+        ImmutableArrayList result = new ImmutableArrayList(size);
         copyValues(this, result);
         result.data[index] = e;
         return result;
@@ -143,8 +148,8 @@ public class ImmutableArrayList implements ImmutableList {
     @Override
     public String toString(){
         StringBuilder result = new StringBuilder();
-        for (Object e:data) {
-            result.append(e.toString());
+        for (int i = 0; i < size; i++) {
+            result.append(data[i].toString());
             result.append(",");
         }
         return result.toString();

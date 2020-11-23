@@ -32,4 +32,8 @@ public class Queue {
         this.data = data.add(e);
         size += 1;
     }
+
+    public String toString(){
+        return data.toString();
+    }
 }
