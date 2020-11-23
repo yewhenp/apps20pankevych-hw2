@@ -80,12 +80,14 @@ public class ImmutableLinkedList implements ImmutableList{
             result.size = c.length;
         } else {
             if (index == 0){
-                result.firstNode.setPrev(tempFirsNode);
+                result.firstNode.setPrev(tempLastNode);
+                tempLastNode.setNext(result.firstNode);
                 result.firstNode = tempFirsNode;
             }
             else if (index == size){
                 result.lastNode.setNext(tempFirsNode);
-                result.lastNode = tempFirsNode;
+                tempLastNode.setPrev(result.lastNode);
+                result.lastNode = tempLastNode;
             }
             else {
                 tempLastNode.setNext(workNode);
